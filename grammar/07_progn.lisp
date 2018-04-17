@@ -2,7 +2,7 @@
 
 (if (oddp 5)
 
-    ;; 本来ifでは一つのことしかできないが、prognを使って、複数のことをしている。s
+    ;; 本来ifでは一つのことしかできないが、prognを使って、複数のことをしている。
     (progn(setf *number-was-odd* t)
         'odd-number)
     'even-number)

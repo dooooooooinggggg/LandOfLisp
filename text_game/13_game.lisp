@@ -6,4 +6,5 @@
     (garden (you are in a beautiful garden.
         ttherere is a well in vront of you))
     (attic (you are in the attic.
-        there is a giant welding torch in the corner))))
+        there is a giant welding torch in the corner))
+))
