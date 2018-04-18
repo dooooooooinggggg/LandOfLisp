@@ -26,19 +26,24 @@
     (frog garden)
 ))
 
+(defparameter *location* 'living-room)
+
 
 
 
 (defun describe-location(location nodes)
-    (cadr (assoc location nodes)))
+    (cadr (assoc location nodes))
+)
 ;; (describe-location 'living-room *nodes*)
 
 (defun describe-path (edge)
-    `(there is a ,(caddr edge) going ,(cadr edge) from here.))
+    `(there is a ,(caddr edge) going ,(cadr edge) from here.)
+)
 ;; (describe-path '(garden west door))
 
 (defun describe-paths (location edges)
-    (apply #'append (mapcar #'describe-path (cdr (assoc location edges)))))
+    (apply #'append (mapcar #'describe-path (cdr (assoc location edges))))
+)
 ;; (describe-paths 'living-room *edges*)
 
 (defun objects-at (loc objs obj-locs)
@@ -49,8 +54,8 @@
         (remove if-not #'at-loc-p objs)
     )
 )
-
 ;; (objects-at 'living-room *objects* *object-locations*)
+
 (defun describe-objects (loc objs obj-loc)
     (labels (
         (describe-obj (obj)
@@ -59,5 +64,13 @@
         (apply #'append (mapcar #'describe-obj (objects-at loc objs obj-loc)))
     ))
 )
+;; (describe-objects 'living-room *objects* *object-locations*)
 
-(describe-objects 'living-room *objects* *object-locations*)
+(defun lock ()
+    (append
+        (describe-location *location* *nodes*)
+        (describe-paths *location* *edges*)
+        (describe-objects *location* *objects* *object-locations*)
+    )
+)
+

@@ -1,20 +1,20 @@
 
 (defparameter *nodes* '(
-    (living-room (you are in the living room.
-        a wizard is snoring loudly on the couch.))
-    (garden (you are in a beautiful garden.
-        there is a well in vront of you))
-    (attic (you are in the attic.
-        there is a giant welding torch in the corner))
+    (living-room (あなたはリビングにいます.
+        ウィザードがソファーで大きな音を立てている.))
+    (garden (あなたは庭にいます.
+        あなたの前には井戸がある.))
+    (attic (あなたは屋根裏にいます.
+        角に巨大な溶接トーチがあります.))
 ))
 
 (defparameter *edges* '(
     (living-room
-        (gardern west door)
-        (attic upstairs ladder)
+        (西に扉庭への扉)
+        (屋根裏への梯子)
     )
-    (garden (living-room east door))
-    (attic (living-room downstairs ladder))
+    (garden (東にリビングへの扉))
+    (attic (床にリビングへの梯子))
 ))
 
 (defparameter *objects* '(whiskey bucket frog chain))
@@ -26,19 +26,24 @@
     (frog garden)
 ))
 
+(defparameter *location* 'living-room)
+
 
 
 
 (defun describe-location(location nodes)
-    (cadr (assoc location nodes)))
+    (cadr (assoc location nodes))
+)
 ;; (describe-location 'living-room *nodes*)
 
 (defun describe-path (edge)
-    `(there is a ,(caddr edge) going ,(cadr edge) from here.))
+    `(there is a ,(caddr edge) going ,(cadr edge) from here.)
+)
 ;; (describe-path '(garden west door))
 
 (defun describe-paths (location edges)
-    (apply #'append (mapcar #'describe-path (cdr (assoc location edges)))))
+    (apply #'append (mapcar #'describe-path (cdr (assoc location edges))))
+)
 ;; (describe-paths 'living-room *edges*)
 
 (defun objects-at (loc objs obj-locs)
@@ -59,5 +64,13 @@
         (apply #'append (mapcar #'describe-obj (objects-at loc objs obj-loc)))
     ))
 )
+;; (describe-objects 'living-room *objects* *object-locations*)
 
-(describe-objects 'living-room *objects* *object-locations*)
+(defun lock ()
+    (append
+        (describe-location *location* *nodes*)
+        (describe-paths *location* *edges*)
+        (describe-objects *location* *objects* *object-locations*)
+    )
+)
+

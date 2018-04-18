@@ -61,3 +61,18 @@
 )
 
 (describe-objects 'living-room *objects* *object-locations*)
+
+;; 今までに作った3つの描写関数をまとめて、lockというコマンドで簡単に呼び出せるようにする。
+;; まずは現在地を保持するグローバル変数を作る
+;; デフォルトはliving-room
+(defparameter *location* 'living-room)
+
+(defun lock ()
+    (append
+        (describe-location *location* *nodes*)
+        (describe-paths *location* *edges*)
+        (describe-objects *location* *objects* *object-locations*)
+    )
+)
+
+;; (lock)で呼び出せる
