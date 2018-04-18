@@ -17,6 +17,18 @@
     (attic (living-room downstairs ladder))
 ))
 
+(defparameter *objects* '(whiskey bucket frog chain))
+
+(defparameter *object-locations* '(
+    (whiskey living-room)
+    (bucket living-room)
+    (chain garden)
+    (frog garden)
+))
+
+
+
+
 (defun describe-location(location nodes)
     (cadr (assoc location nodes)))
 
@@ -32,22 +44,8 @@
 
 ;; (describe-paths 'living-room *edges*)
 
-;; 目に見えるオブジェクトをリストする。
-(defparameter *objects* '(whiskey bucket frog chain))
-
-;; オブジェクトの場所を管理する変数
-;; オブジェクトとその場所をalistで管理する
-(defparameter *object-locations* '(
-    (whiskey living-room)
-    (bucket living-room)
-    (chain garden)
-    (frog garden)
-))
-
-;; 与えられた場所から見えるもののリストを返す関数
 (defun objects-at (loc objs obj-locs)
     (labels (
-        ;; labelsを使用して、ローカル関数を定義
         (at-loc-p (obj)
             (eq (cadr (assoc obj obj-locs)) loc)
         ))
@@ -57,8 +55,6 @@
 
 ;; (objects-at 'living-room *objects* *object-locations*)
 ;; (WHISKEY BUCKET)
-
-;; これらを使い、ある場所で見えるオブジェクトを描写する関数が書ける
 (defun describe-objects (loc objs obj-loc)
     (labels (
         (describe-obj (obj)
