@@ -76,3 +76,21 @@
 )
 
 ;; (lock)で呼び出せる
+
+;; 歩き回るコードも書く。
+(defun walk (direction)
+    (let (
+            (next (find direction
+                (cdr (assoc *location* *edges*))
+                :key #'cadr)
+            )
+        )
+        (if next
+            (progn (setf *location* (car next))
+                (lock)
+            )
+            '(you cannot go that way.)
+        )
+    )
+)
+
