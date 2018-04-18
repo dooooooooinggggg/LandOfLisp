@@ -85,3 +85,15 @@
 ;; ifが真の時、locationに値をセットすることで、移動が完了する。
 ;; findのあとの、key というところで、direction(の値)という要素をcadrに持つような最初の要素をリストから見つけてくる。
 
+;; オブジェクトを手にとる
+(defun pickup (object)
+    (cond ((member object
+                (objects-at *location* *objects* *object-locations*))
+            (push (list object 'body) *object-locations*)
+            `(you are now carrying the ,object))
+        (t '(you cannot get that.))))
+
+;; ;; pushに関して。
+;; (push (list object 'body) *object-locations*)
+;; これは、下のようにも置き換えられる。
+;; (push (list object 'body) *object-locations*)
