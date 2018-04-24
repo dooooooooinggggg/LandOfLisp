@@ -15,6 +15,7 @@
             (living-room east door))
         (attic
             (living-room downstairs ladder))))
+
 (defparameter *objects* '(whiskey bucket frog chain))
 
 (defparameter *object-locations* '(
