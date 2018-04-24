@@ -13,7 +13,7 @@
 ;; よくわからないが、ユーザー入力がそのままコードになるということかな
 
 (defun game-repl2()
-    (let((cmd (game-read)))
+    (let ((cmd (game-read)))
         (unless (eq (car cmd) 'quit)
             (game-print(game-eval cmds))
             (game-repl2))))
@@ -56,5 +56,5 @@
                     'list)
                 t
                 nil)
-            'strings))
+            'string))
     (fresh-line))

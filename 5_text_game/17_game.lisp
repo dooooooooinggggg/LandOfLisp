@@ -1,21 +1,20 @@
 
 (defparameter *nodes* '(
-        (living-room (you are in the living room.
+        (living-room (you are in the living-room.
                 a wizard is snoring loudly on the couch.))
         (garden (you are in a beautiful garden.
-                there is a well in vront of you))
+                there is a well in front of you.))
         (attic (you are in the attic.
-                there is a giant welding torch in the corner))))
+                there is a giant welding torch in the corner.))))
 
 (defparameter *edges* '(
         (living-room
-            (gardern west door)
+            (garden west door)
             (attic upstairs ladder))
         (garden
             (living-room east door))
         (attic
             (living-room downstairs ladder))))
-
 (defparameter *objects* '(whiskey bucket frog chain))
 
 (defparameter *object-locations* '(
@@ -40,17 +39,15 @@
 ;; (describe-paths 'living-room *edges*)
 
 (defun objects-at (loc objs obj-locs)
-        (labels (
-                (at-loc-p (obj)
+        (labels ((at-loc-p (obj)
                     (eq (cadr (assoc obj obj-locs)) loc)))
-                (remove if-not #'at-loc-p objs)))
+                (remove-if-not #'at-loc-p objs)))
 
 ;; (objects-at 'living-room *objects* *object-locations*)
 (defun describe-objects (loc objs obj-loc)
-    (labels (
-        (describe-obj (obj)
-            `(you see a ,obj on the floor.))
-        (apply #'append (mapcar #'describe-obj (objects-at loc objs obj-loc))))))
+    (labels ((describe-obj (obj)
+                `(you see a ,obj on the floor.)))
+        (apply #'append (mapcar #'describe-obj (objects-at loc objs obj-loc)))))
 
 (describe-objects 'living-room *objects* *object-locations*)
 
@@ -59,7 +56,7 @@
 ;; デフォルトはliving-room
 (defparameter *location* 'living-room)
 
-(defun lock ()
+(defun look ()
     (append
         (describe-location *location* *nodes*)
         (describe-paths *location* *edges*)
@@ -69,13 +66,12 @@
 
 ;; 歩き回るコードも書く。
 (defun walk (direction)
-    (let (
-            (next (find direction
+    (let ((next (find direction
                     (cdr (assoc *location* *edges*))
                     :key #'cadr)))
             (if next
                 (progn (setf *location* (car next))
-                    (lock))
+                    (look))
                 '(you cannot go that way.))))
 
 ;; このコードはまず、現在地から進める道を、edgeから調べている。
