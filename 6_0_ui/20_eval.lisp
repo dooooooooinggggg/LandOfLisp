@@ -28,7 +28,7 @@
                     (list 'quote x)))
             (cons (car cmd) (mapcar #'quote-it (cdr cmd))))))
 
-;; read-from-stringの入力とする文字列は、rread-lineで得たものにちょっと加工したデータ。
+;; read-from-stringの入力とする文字列は、read-lineで得たものにちょっと加工したデータ。
 
 ;; これ以外のコマンドは使えない
 (defparameter *allowed-commands* '(look walk pickup inventory))
