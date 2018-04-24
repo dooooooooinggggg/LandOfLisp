@@ -22,11 +22,11 @@
 ;; 1:括弧をつけないとコマンドを入力できない。これは困るので、read-lineで読んだものに、こっち側で、()をつける
 ;; 2:クォートをつけるのがめんどくさい
 (defun game-read()
-    (let ((cmd read-from-string
-                (concatenate 'string "(" (read-line) ")"))))
-    (flet ((quote-it (x)
-                (list 'quote x))
-        (cons (car cmd) (mapcar #'quote-it (cdr cmd))))))
+    (let ((cmd (read-from-string
+                    (concatenate 'string "(" (read-line) ")"))))
+        (flet ((quote-it (x)
+                    (list 'quote x)))
+            (cons (car cmd) (mapcar #'quote-it (cdr cmd))))))
 
 ;; read-from-stringの入力とする文字列は、rread-lineで得たものにちょっと加工したデータ。
 
