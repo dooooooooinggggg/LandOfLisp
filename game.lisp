@@ -1,15 +1,15 @@
 
 (defparameter *nodes* '(
-        (living-room (you are in the living room.
+        (living-room (you are in the living-room.
                 a wizard is snoring loudly on the couch.))
         (garden (you are in a beautiful garden.
-                there is a well in vront of you))
+                there is a well in front of you))
         (attic (you are in the attic.
                 there is a giant welding torch in the corner))))
 
 (defparameter *edges* '(
         (living-room
-            (gardern west door)
+            (garden west door)
             (attic upstairs ladder))
         (garden
             (living-room east door))
@@ -52,7 +52,7 @@
                 `(you see a ,obj on the floor.))
             (apply #'append (mapcar #'describe-obj (objects-at loc objs obj-loc))))))
 
-(defun lock ()
+(defun look ()
     (append
         (describe-location *location* *nodes*)
         (describe-paths *location* *edges*)
@@ -64,7 +64,7 @@
                     :key #'cadr)))
             (if next
                 (progn (setf *location* (car next))
-                    (lock))
+                    (look))
                 '(you cannot go that way.))))
 
 (defun pickup (object)
@@ -81,7 +81,7 @@
 (defun game-repl()
     (let ((cmd (game-read)))
         (unless (eq (car cmd) 'quit)
-            (gasme-print(game-eval cmd))
+            (game-print(game-eval cmd))
             (game-repl))))
 
 (defun game-read()
@@ -117,3 +117,4 @@
             'string))
     (fresh-line))
 
+(game-repl)
