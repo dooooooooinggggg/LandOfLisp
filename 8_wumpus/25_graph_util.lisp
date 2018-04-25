@@ -94,5 +94,5 @@
         (lambda ()
             (ugraph->dot nodes edges))))
 
-(graph->png "wizard.dot" *wizard-nodes* *wizard-edges*)
-(ugraph->png "uwizard.dot" *wizard-nodes* *wizard-edges*)
+;; (graph->png "wizard.dot" *wizard-nodes* *wizard-edges*)
+;; (ugraph->png "uwizard.dot" *wizard-nodes* *wizard-edges*)
