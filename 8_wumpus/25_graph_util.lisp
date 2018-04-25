@@ -21,7 +21,7 @@
         (princ "\"];"))
     nodes))
 
-(nodes->dot *wizard-nodes*)
+;; (nodes->dot *wizard-nodes*)
 
 (defun edges->dot (edges)
     (mapc (lambda (node)
