@@ -22,3 +22,29 @@
 
 ;; これが、コンジェスチョンシティの道路の仕組み
 (make-edge-list)
+
+;; ここで、孤児ができる可能性がある
+(loop repeat 10
+    collect 1)
+
+(loop for n from 1 to 10
+    collect n)
+
+;; では、この孤児を作らないようにコードを書き加える
+
+(defun direct-edges (node edge-list)
+    (remove-if-not (lambda (x)
+            (eql (car x) node))
+        edge-list))
+
+(defun get-connected (node edge-list)
+    (let ((visited nil))
+        (labels ((traverse (node)
+                (unless (member node visited)
+                    (push node visited)
+                    (mapc (lambda (edge)
+                            (traverse (cdr edge)))
+                        (direct-edges node edge-list)))))
+        (traverse node))
+    visited))
+
