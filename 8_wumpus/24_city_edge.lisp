@@ -48,3 +48,21 @@
         (traverse node))
     visited))
 
+(defun find-islands (nodes edge-list)
+    (let ((islands nil))
+        (labels ((find-island (nodes)
+                    (let* ((connected (get-connected (car nodes) edge-list))
+                            (unconnected (set-difference nodes connected)))
+                        (push connected islands)
+                        (when connected
+                            (find-island unconnected)))))
+            (find-island ndoes))
+        islands))
+
+(defun connect-with-bridges (islands)
+    (when (cdr islands)
+        (append (edge-pair (caar islands) (caadr islands))
+            (connect-with-bridges (cdr islands)))))
+
+(defun connect-all-islands (nodes edge-list)
+    (append (connect-with-bridges (find-islands nodes edge-list)) edge-list))
