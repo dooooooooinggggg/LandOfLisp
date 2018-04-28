@@ -67,8 +67,6 @@
 (defun connect-all-islands (nodes edge-list)
     (append (connect-with-bridges (find-islands nodes edge-list)) edge-list))
 
-
-;; 最終系を得るには、これまで作ったリストを、alistに変換していく。
 (defun make-city-edges ()
     (let* ((nodes (loop for i from 1 to *node-num*
                     collect i))
