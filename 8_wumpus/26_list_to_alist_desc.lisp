@@ -28,10 +28,18 @@
                 (mapcar (lambda (edge)
                         (list (cdr edge)))
                     (remove-duplicates (direct-edges node1 edge-list)
-                        :test #'equal))))
+                        :test #'equal)))) ;; 16
         (remove-duplicates (mapcar #'car edge-list))))
 
+;; これは、見ればわかるように、リストをalistに変換するもの
+;; 例えば、これが小さい町で、リストがこんな感じ
+'((1 . 2)(2 . 1)(2 . 3)(3 . 2))
+;; だった場合、alistは以下のようになる。
+'((1 (2)) (2 (1) (3)) (3 (2)))
+;; となる。
 
+;; エッジリストの起点を集めるには、各リストのcarをとったものをremove duplicateすればいい(なるほど！！！)
+;; 16: デフォルトで、eqlを使うが、:test でパラメータを使うことで、他のものを使うこともできる。
 
 (defun add-cops (edge-alist edges-with-cops)
     (mapcar (lambda (x)
