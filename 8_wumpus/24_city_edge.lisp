@@ -99,3 +99,9 @@
                                     edge)))
                         node1-edges))))
         edge-list))
+
+(defun neighbors (node edge-alist)
+    (mapcar #'car (cdr (assoc node edge-alist))))
+
+(defun within-one (a b edge-alist)
+    (member b (neighbors a edge-alist)))
