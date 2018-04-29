@@ -63,12 +63,19 @@
 (defun neighbors (node edge-alist)
     (mapcar #'car (cdr (assoc node edge-alist))))
 
+;; 近接するノードを返すもの。
+'((1 (2 COP)) (2 (1 COP) (3)) (3 (2)))
+;; (assoc node edge-alist)
+(2 (1 COP) (3))
+;; (cdr (assoc node edge-alist))
+((1 COP) (3))
+;; それぞれの要素に対して、carとる。
 
 
 (defun within-one (a b edge-alist)
     (member b (neighbors a edge-alist)))
 
-
+;; ある場所が、その場所と近接しているかどうか。
 
 (defun within-two (a b edge-alist)
     (or (within-one a b edge-alist)
@@ -76,7 +83,10 @@
                 (within-one x b edge-alist))
             (neighbors a edge-alist))))
 
-
+;; 2個以内にその町があるのかどうか。
+;; orはT or 偽を返す。
+;; ある場所が、隣にあるかor一個のとこにあるか。
+;; someは、要素あるかどうか。一個でもあったら真を返す。
 
 (defun make-city-node (edge-alist)
     (let ((wumpus (random-node))
@@ -94,5 +104,3 @@
                         '(lights!)))
                 (when (some #'car (cdr (assoc n edge-alist)))
                     '(sirens!))))))
-
-
