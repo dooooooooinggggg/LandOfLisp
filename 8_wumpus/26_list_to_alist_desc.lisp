@@ -89,18 +89,23 @@
 ;; someは、要素あるかどうか。一個でもあったら真を返す。
 
 (defun make-city-node (edge-alist)
-    (let ((wumpus (random-node))
-            (glow-worms (loop for i below *worm-num*
-                    collect (random-node))))
-        (loop for n from i to *node-num*
-            collect (append (list n)
-                (cond ((equal n wumpus) '(wumpus))
-                    ((within-two n wumpus edge-alist) '(blood!)))
-                (cond ((member n glow-worms)
-                        '(glow-worm))
-                    ((some (lambda (worm)
-                                (within-one n worm edge-alist))
-                            glow-worms)
-                        '(lights!)))
-                (when (some #'car (cdr (assoc n edge-alist)))
-                    '(sirens!))))))
+    (let (
+            (wumpus (random-node))                                ;; 2
+            (glow-worms (loop for i below *worm-num*              ;; 3
+                    collect (random-node))))                      ;; 4
+        (loop for n from 1 to *node-num*                          ;; 5
+            collect (append (list n)                              ;; 6
+                (cond ((equal n wumpus) '(wumpus))                ;; 7
+                    ((within-two n wumpus edge-alist) '(blood!))) ;; 8
+                (cond ((member n glow-worms)                      ;; 9
+                        '(glow-worm))                             ;; 10
+                    ((some (lambda (worm)                         ;; 11
+                                (within-one n worm edge-alist))   ;; 12
+                            glow-worms)                           ;; 13
+                        '(lights!)))                              ;; 14
+                (when (some #'car (cdr (assoc n edge-alist)))     ;; 15
+                    '(sirens!))))))                               ;; 16
+
+;; 2,3で、ワンプスと、ヤクザがいるノードをランダムに選んでいる。
+;; 5で、ノード番号をループさせ、各ノードを記述するリストを、情報をappendしつつ作ってく。
+

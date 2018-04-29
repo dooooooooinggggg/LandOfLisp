@@ -20,17 +20,13 @@
     (apply #'append (loop repeat *edge-num*
             collect (edge-pair (random-node) (random-node)))))
 
-;; これが、コンジェスチョンシティの道路の仕組み
 (make-edge-list)
 
-;; ここで、孤児ができる可能性がある
 (loop repeat 10
     collect 1)
 
 (loop for n from 1 to 10
     collect n)
-
-;; では、この孤児を作らないようにコードを書き加える
 
 (defun direct-edges (node edge-list)
     (remove-if-not (lambda (x)
@@ -56,7 +52,7 @@
                         (push connected islands)
                         (when connected
                             (find-island unconnected)))))
-            (find-island ndoes))
+            (find-island nodes))
         islands))
 
 (defun connect-with-bridges (islands)
@@ -114,9 +110,9 @@
 
 (defun make-city-node (edge-alist)
     (let ((wumpus (random-node))
-            (glow-worms (loop for 1 below *worm-num*
+            (glow-worms (loop for i below *worm-num*
                     collect (random-node))))
-        (loop for n from i to *node-num*
+        (loop for n from 1 to *node-num*
             collect (append (list n)
                 (cond ((equal n wumpus) '(wumpus))
                     ((within-two n wumpus edge-alist) '(blood!)))
@@ -128,3 +124,21 @@
                         '(lights!)))
                 (when (some #'car (cdr (assoc n edge-alist)))
                     '(sirens!))))))
+
+(defun new-game()
+    (setf *congestion-city-edges* (make-city-edges))
+    (setf *congestion-city-nodes* (make-city-nodes))
+    (setf *player-pos* (find-empty-node))
+    (setf *visited-nodes* (list *player-pos*))
+    (draw-city))
+
+(defun find-empty-node ()
+    (let ((x (random-node)))
+        (if (cdr (assoc x *congestion-city-nodes*))
+            (find-empty-node)
+            x)))
+
+(defun draw-city ()
+    (ugraph->png "city" *congestion-city-nodes* *congestion-city-edges*))
+
+(new-game)
