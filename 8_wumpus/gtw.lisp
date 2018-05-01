@@ -1,8 +1,8 @@
 ;; Use "Graph util" created in Chaptar7
 (load "25_graph_util")
 
-(defparameter *congestion-city-nodes* nil)
-(defparameter *congestion-city-edges* nil)
+(defparameter *conjestion-city-nodes* nil)
+(defparameter *conjestion-city-edges* nil)
 (defparameter *visited-nodes* nil)
 (defparameter *node-num* 30)
 (defparameter *edge-num* 45)
@@ -126,19 +126,19 @@
                     '(sirens!))))))
 
 (defun new-game()
-    (setf *congestion-city-edges* (make-city-edges))
-    (setf *congestion-city-nodes* (make-city-nodes))
+    (setf *conjestion-city-edges* (make-city-edges))
+    (setf *conjestion-city-nodes* (make-city-nodes))
     (setf *player-pos* (find-empty-node))
     (setf *visited-nodes* (list *player-pos*))
     (draw-city))
 
 (defun find-empty-node ()
     (let ((x (random-node)))
-        (if (cdr (assoc x *congestion-city-nodes*))
+        (if (cdr (assoc x *conjestion-city-nodes*))
             (find-empty-node)
             x)))
 
 (defun draw-city ()
-    (ugraph->png "city" *congestion-city-nodes* *congestion-city-edges*))
+    (ugraph->png "city" *conjestion-city-nodes* *conjestion-city-edges*))
 
 (new-game)
