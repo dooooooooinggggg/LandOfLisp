@@ -56,10 +56,6 @@
                         node1-edges))))
         edge-list))
 
-
-
-
-
 (defun neighbors (node edge-alist)
     (mapcar #'car (cdr (assoc node edge-alist))))
 
@@ -71,10 +67,8 @@
 ((1 COP) (3))
 ;; それぞれの要素に対して、carとる。
 
-
 (defun within-one (a b edge-alist)
     (member b (neighbors a edge-alist)))
-
 ;; ある場所が、その場所と近接しているかどうか。
 
 (defun within-two (a b edge-alist)
@@ -82,7 +76,6 @@
         (some (lambda (x)
                 (within-one x b edge-alist))
             (neighbors a edge-alist))))
-
 ;; 2個以内にその町があるのかどうか。
 ;; orはT or 偽を返す。
 ;; ある場所が、隣にあるかor一個のとこにあるか。
@@ -105,7 +98,5 @@
                         '(lights!)))                              ;; 14
                 (when (some #'car (cdr (assoc n edge-alist)))     ;; 15
                     '(sirens!))))))                               ;; 16
-
 ;; 2,3で、ワンプスと、ヤクザがいるノードをランダムに選んでいる。
 ;; 5で、ノード番号をループさせ、各ノードを記述するリストを、情報をappendしつつ作ってく。
-
