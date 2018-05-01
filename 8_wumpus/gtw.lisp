@@ -20,13 +20,13 @@
     (apply #'append (loop repeat *edge-num*
             collect (edge-pair (random-node) (random-node)))))
 
-(make-edge-list)
+;; (make-edge-list)
 
-(loop repeat 10
-    collect 1)
+;; (loop repeat 10
+;;     collect 1)
 
-(loop for n from 1 to 10
-    collect n)
+;; (loop for n from 1 to 10
+;;     collect n)
 
 (defun direct-edges (node edge-list)
     (remove-if-not (lambda (x)
@@ -94,7 +94,7 @@
                                     (list node2 'cops)
                                     edge)))
                         node1-edges))))
-        edge-list))
+        edge-alist))
 
 (defun neighbors (node edge-alist)
     (mapcar #'car (cdr (assoc node edge-alist))))
@@ -114,7 +114,7 @@
                     collect (random-node))))
         (loop for n from 1 to *node-num*
             collect (append (list n)
-                (cond ((equal n wumpus) '(wumpus))
+                (cond ((eql n wumpus) '(wumpus))
                     ((within-two n wumpus edge-alist) '(blood!)))
                 (cond ((member n glow-worms)
                         '(glow-worm))
@@ -122,7 +122,7 @@
                                 (within-one n worm edge-alist))
                             glow-worms)
                         '(lights!)))
-                (when (some #'car (cdr (assoc n edge-alist)))
+                (when (some #'cdr (cdr (assoc n edge-alist)))
                     '(sirens!))))))
 
 (defun new-game()
