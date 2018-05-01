@@ -88,7 +88,7 @@
                 (cons node1
                     (mapcar (lambda (edge)
                             (let ((node2 (car edge)))
-                                (if (intersection (edge-pairs node1 node2)
+                                (if (intersection (edge-pair node1 node2)
                                         edges-with-cops
                                         :test #'equal)
                                     (list node2 'cops)
@@ -108,7 +108,7 @@
                 (within-one x b edge-alist))
             (neighbors a edge-alist))))
 
-(defun make-city-node (edge-alist)
+(defun make-city-nodes (edge-alist)
     (let ((wumpus (random-node))
             (glow-worms (loop for i below *worm-num*
                     collect (random-node))))
@@ -127,7 +127,7 @@
 
 (defun new-game()
     (setf *congestion-city-edges* (make-city-edges))
-    (setf *congestion-city-nodes* (make-city-nodes))
+    (setf *congestion-city-nodes* (make-city-nodes *congestion-city-edges*))
     (setf *player-pos* (find-empty-node))
     (setf *visited-nodes* (list *player-pos*))
     (draw-city))
