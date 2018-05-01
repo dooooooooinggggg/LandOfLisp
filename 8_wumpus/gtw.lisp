@@ -50,7 +50,7 @@
                     (let* ((connected (get-connected (car nodes) edge-list))
                             (unconnected (set-difference nodes connected)))
                         (push connected islands)
-                        (when connected
+                        (when unconnected
                             (find-island unconnected)))))
             (find-island nodes))
         islands))
@@ -158,4 +158,3 @@
                     *visited-nodes*)))))
 
 (new-game)
-
