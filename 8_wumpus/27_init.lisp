@@ -31,3 +31,5 @@
                                     *congestion-city-edges*))))
                     *visited-nodes*)))))
 
+(defun known-city-edges ()
+    )
