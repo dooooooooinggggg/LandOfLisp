@@ -1,7 +1,7 @@
 
 (defun new-game()
     (setf *congestion-city-edges* (make-city-edges))
-    (setf *congestion-city-nodes* (make-city-nodes))
+    (setf *congestion-city-nodes* (make-city-nodes *congestion-city-edges*))
     (setf *player-pos* (find-empty-node))
     (setf *visited-nodes* (list *player-pos*))
     (draw-city)

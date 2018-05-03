@@ -125,14 +125,6 @@
                 (when (some #'cdr (cdr (assoc n edge-alist)))
                     '(sirens!))))))
 
-(defun new-game()
-    (setf *congestion-city-edges* (make-city-edges))
-    (setf *congestion-city-nodes* (make-city-nodes))
-    (setf *player-pos* (find-empty-node))
-    (setf *visited-nodes* (list *player-pos*))
-    (draw-city)
-    (draw-known-city))
-
 (defun find-empty-node ()
     (let ((x (random-node)))
         (if (cdr (assoc x *congestion-city-nodes*))
@@ -170,5 +162,12 @@
 (defun draw-known-city ()
     (ugraph->png "known-city" (known-city-nodes) (known-city-edges)))
 
+(defun new-game()
+    (setf *congestion-city-edges* (make-city-edges))
+    (setf *congestion-city-nodes* (make-city-nodes *congestion-city-edges*))
+    (setf *player-pos* (find-empty-node))
+    (setf *visited-nodes* (list *player-pos*))
+    (draw-city)
+    (draw-known-city))
 
 (new-game)
