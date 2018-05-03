@@ -32,4 +32,10 @@
                     *visited-nodes*)))))
 
 (defun known-city-edges ()
-    )
+    (mapcar (lambda (node)
+            (cons node (mapcar (lambda (x)
+                        (if (member (car x) *visited-nodes*)
+                            x
+                            (list (car x))))
+                    (cdr (assoc node *congestion-city-edges*)))))
+        *visited-nodes*))
