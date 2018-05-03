@@ -4,7 +4,8 @@
     (setf *congestion-city-nodes* (make-city-nodes))
     (setf *player-pos* (find-empty-node))
     (setf *visited-nodes* (list *player-pos*))
-    (draw-city))
+    (draw-city)
+    (draw-known-city))
 
 (defun find-empty-node ()
     (let ((x (random-node)))
@@ -39,3 +40,6 @@
                             (list (car x))))
                     (cdr (assoc node *congestion-city-edges*)))))
         *visited-nodes*))
+
+(defun draw-known-city ()
+    (ugraph->png "known-city" (known-city-nodes) (known-city-edges)))
