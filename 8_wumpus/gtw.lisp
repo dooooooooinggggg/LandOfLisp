@@ -170,4 +170,6 @@
     (draw-city)
     (draw-known-city))
 
+
+
 (new-game)
