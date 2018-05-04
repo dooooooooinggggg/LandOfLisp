@@ -44,11 +44,18 @@
 (defun draw-known-city ()
     (ugraph->png "known-city" (known-city-nodes) (known-city-edges)))
 
+
+;; walkとchargeは、やることが似ているので、共通部分をくくり出す。
+
 (defun walk (pos)
     (handle-direction pos nil))
 
 (defun charge (pos)
     (handle-direction pos t))
+
+
+;; これは、指定されたnode番号、posが、移動可能場所のリストにあるかどうかを調べる。
+;; 移動可能かどうか、調べ、可能なら、handle-new-place関数を呼び出す。
 
 (defun handle-direction (pos charging)
     (let ((edge (assoc pos
@@ -56,6 +63,8 @@
         (if edge
             (handle-new-place edge pos charging)
             (princ "That location doen not exsit!!"))))
+
+
 
 (defun handle-new-place (edge pos charging)
     (let* (

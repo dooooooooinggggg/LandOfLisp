@@ -1,5 +1,5 @@
 ;; Use "Graph util" created in Chaptar7
-(load "25_graph_util")
+(load "graph_util")
 
 (defparameter *congestion-city-nodes* nil)
 (defparameter *congestion-city-edges* nil)
@@ -173,7 +173,7 @@
                     (cdr (assoc *player-pos* *congestion-city-edges*)))))
         (if edge
             (handle-new-place edge pos charging)
-            (princ "That location doen not exsit!!"))))
+            (princ "That location does not exist!!"))))
 
 (defun handle-new-place (edge pos charging)
     (let* (
