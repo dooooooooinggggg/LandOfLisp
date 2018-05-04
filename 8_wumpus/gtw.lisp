@@ -1,5 +1,5 @@
 ;; Use "Graph util" created in Chaptar7
-(load "graph_util")
+(load "25_graph_util")
 
 (defparameter *congestion-city-nodes* nil)
 (defparameter *congestion-city-edges* nil)
