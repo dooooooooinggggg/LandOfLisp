@@ -174,7 +174,7 @@
                     (cdr (assoc *player-pos* *congestion-city-edges*)))))
         (if edge
             (handle-new-place edge pos charging)
-            (princ "That location does not exist!!"))))
+            (princ "That location doen not exsit!!"))))
 
 (defun handle-new-place (edge pos charging)
     (let* (
