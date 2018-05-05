@@ -1,5 +1,5 @@
 ;; Use "Graph util" created in Chaptar7
-(load "graph_util")
+(load "25_graph_util")
 
 (defparameter *congestion-city-nodes* nil)
 (defparameter *congestion-city-edges* nil)
@@ -145,11 +145,12 @@
 (defun known-city-edges ()
     (mapcar (lambda (node)
             (cons node (mapcar (lambda (x)
-                        (if (member (car x) *visited-nodes*)
+                        (if (and (member (car x) *visited-nodes*)
+                                (member node *visited-nodes*))
                             x
                             (list (car x))))
                     (cdr (assoc node *congestion-city-edges*)))))
-        *visited-nodes*))
+        *visited-nodes*)))
 
 (defun draw-known-city ()
     (ugraph->png "known-city" (known-city-nodes) (known-city-edges)))
