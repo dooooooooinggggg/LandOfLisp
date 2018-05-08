@@ -83,5 +83,3 @@
             (living-room east door))
         (attic
             (living-room downstairs ladder))))
-
-
