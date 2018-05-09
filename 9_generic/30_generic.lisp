@@ -32,3 +32,21 @@
             best))
     '(7 4 6 5 2)
     :initial-value 0)
+
+(defun sum (lst)
+    (reduce #'+ lst))
+
+(sum '(1 2 3))
+
+(sum (make-array 5 :initial-contents '(1 2 3 4 5)))
+
+;; map
+
+;; mapは、今までのmapcarとほぼ同じ動作をする。
+;; 違いは、前者は、いろいろ受け取れるのに対して、mapcarは、リストしか扱えない
+(map 'list
+    (lambda (x)
+        (if (eq x #\s)
+            #\S
+            x))
+    "This is a string")
