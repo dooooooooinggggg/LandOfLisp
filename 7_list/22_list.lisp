@@ -11,7 +11,7 @@
 (defparameter foo (list 1 2 3))
 
 (setf (cdddr foo) foo)
-要は、(1 2 3)というのは、
+;; 要は、(1 2 3)というのは、
 (cons 1 (cons 2 (cons 3 nil)))
 ;; となっていて、そのnilに、fooを代入しているということ
 
