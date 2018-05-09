@@ -62,4 +62,23 @@ x
 (+ (foo) 5)
 ;; 8
 
+;; 二つ目の値を利用したい場合は、別の関数を利用する。
+(multiple-value-bind (a b) (foo)
+    (* a b))
+;; 21
 
+;; これで、二つの返り値をa,bにbindする。
+
+;; ただ、この方式はあまり使われていない。
+;; リストを返せばいいので。
+
+;; ハッシュテーブル、どんなに大きくなっても、アクセス時間が一定
+
+;; これを使って、少し改善する。
+(defun hash-edges (edge-list)
+    (let ((tab (make-hash-table )))
+        (mapc (lambda (x)
+                (let ((node (car x)))
+                    (push (cdr x) (gethash node tab))))
+            edge-list)
+        tab))

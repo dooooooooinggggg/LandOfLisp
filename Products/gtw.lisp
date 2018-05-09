@@ -150,7 +150,7 @@
                             x
                             (list (car x))))
                     (cdr (assoc node *congestion-city-edges*)))))
-        *visited-nodes*)))
+        *visited-nodes*))
 
 (defun draw-known-city ()
     (ugraph->png "known-city" (known-city-nodes) (known-city-edges)))
