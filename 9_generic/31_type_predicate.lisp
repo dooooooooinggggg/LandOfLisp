@@ -22,3 +22,35 @@
 (defmethod add ((a list) (b list))
     (append a b))
 ;; こんな感じ。
+
+;; これを踏まえ、モンスターたちも、structにする
+(defstruct monster (health (randval 10)))
+;; healthの次の要素は、初期値
+
+(make-monster)
+
+;; 攻撃を受けた時に、モンスターの体力を減らしていく関数
+(defmethod monster-hit (m, x)
+    (decf (monster-health m) x)
+    (if (monster-dead m)
+        (progn (princ "You killed the ")
+            (princ (type-of m))
+            (princ "! "))
+        (progn (princ "You hit the ")
+            (princ (type-of m))
+            (princ ", knocking off ")
+            (princ  x)
+            (princ " health points!"))))
+
+;; decfは、setfの仲間で、変数の中身を減らす。
+
+;; type-of関数を使うことで、モンスターの種類を調べる。
+
+(type-of 'foo)
+;; SYMBOL
+(type-of 5)
+;; (INTEGER 0 281474976710655)
+(type-of "foo")
+;; (SIMPLE-BASE-STRING 3)
+(type-of (make-monster))
+;; MONSTER

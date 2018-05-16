@@ -120,3 +120,7 @@
                         (princ ") ")
                         (monster-show m))))
             *monsters*)))
+
+(defstruct monster (health (randval 10)))
+
+
