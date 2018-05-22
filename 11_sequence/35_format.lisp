@@ -16,3 +16,12 @@
 (format t "I am printing ~10a in the middle of this sentence." "foo")
 
 (format t "I am printing ~10@a in the middle of this sentence." "foo")
+
+;; 数字
+(format t "Tehe number 1000 in 16進数 is ~x" 1000)
+
+(format t "Tehe number 1000 in 2進数 is ~b" 1000)
+
+(format t "Tehe number 1000 in 10進数 is ~d" 1000)
+
+(format t "|~{~<|~%|~,33:;~2d ~>~}|" (loop for x below 100 collect x))
