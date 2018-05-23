@@ -1,7 +1,7 @@
-(defparameter *lifespan* 12)
+(defparameter *lifespan* 100)
 
 (defparameter *width* 100)
-(defparameter *height* 100)
+(defparameter *height* 50)
 
 (defparameter *prev_val* (make-array (* *width* *height*)))
 (defparameter *next_val* (make-array (* *width* *height*)))
@@ -47,32 +47,31 @@
 
 (defun next-gen (i)
     (let ((c 0))
-        (unless (or (= (mod i *width*) 0) (= (mod i *width*) (- *width* 1)) (< i *width*) (>= i (- (* *width* *height*) *width*)))
-            (setf c
-                (
-                    (lambda (counter-list)
-                        (apply #'+ counter-list)
-                    )
-                    (list
-                        (aref *prev_val* (- i 101))
-                        (aref *prev_val* (- i 100))
-                        (aref *prev_val* (- i 99))
-                        (aref *prev_val* (- i 1))
-                        (aref *prev_val* (+ i 1))
-                        (aref *prev_val* (+ i 99))
-                        (aref *prev_val* (+ i 100))
-                        (aref *prev_val* (+ i 101)))))
-            (cond
-                ((= (aref *prev_val* 1))
-                    (cond
-                        ((or (= c 2) (= c 3))
-                            (setf (aref *next_val* i) 1))
-                        (t (setf (aref *next_val* i) 0))))
-                ((= (aref *prev_val* 0))
-                    (cond
-                        ((= c 3)
-                            (setf (aref *next_val* i) 1))
-                        (t (setf (aref *next_val* i) 0))))))))
+        (cond
+            ((not (or (= (mod i *width*) 0) (= (mod i *width*) (- *width* 1)) (< i *width*) (>= i (- (* *width* *height*) *width*))))
+                (setf c ((lambda (counter-list)
+                            (apply #'+ counter-list))
+                        (list
+                            (aref *prev_val* (- i (+ *width* 1)))
+                            (aref *prev_val* (- i *width*))
+                            (aref *prev_val* (- i (- *width* 1)))
+                            (aref *prev_val* (- i 1))
+                            (aref *prev_val* (+ i 1))
+                            (aref *prev_val* (+ i (- *width* 1)))
+                            (aref *prev_val* (+ i *width*))
+                            (aref *prev_val* (+ i (+ *width* 1))))))
+                (cond
+                    ((= (aref *prev_val* 1))
+                        (cond
+                            ((or (= c 2) (= c 3))
+                                (setf (aref *next_val* i) 1))
+                            (t (setf (aref *next_val* i) 0))))
+                    ((= (aref *prev_val* 0))
+                        (cond
+                            ((= c 3)
+                                (setf (aref *next_val* i) 1))
+                            (t (setf (aref *next_val* i) 0))))))
+            (t (setf (aref *next_val* i) 0)))))
 
 (defun new-gen()
     (loop for i below (* *width* *height*)
