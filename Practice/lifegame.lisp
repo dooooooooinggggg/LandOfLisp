@@ -13,8 +13,7 @@
                 (cond
                     ((not (or (= (mod i *width*) 0) (= (mod i *width*) (- *width* 1)) (< i *width*) (>= i (- (* *width* *height*) *width*))))
                         (setf (aref *prev_val* i) (random 2)))
-                    (t (setf (aref *prev_val* i) 0))))))
-    (princ *prev_val*))
+                    (t (setf (aref *prev_val* i) 0)))))))
 
 (defun cp-next-to-prev ()
     (loop for i below (* *width* *height*)
