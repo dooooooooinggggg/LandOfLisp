@@ -90,3 +90,15 @@
         do (life-span i)))
 
 (main)
+
+;; (ext:saveinitmem "lifegame_excutable"
+;;                  :quiet t               ; バナーを表示しない
+;;                  :norc t                ; 初期化ファイルをロードしない
+;;                  :init-function #'main ; REPLの前にhelloを呼ぶ
+;;                  :executable t)
+
+
+;; (sb-ext:save-lisp-and-die "lifegame-sbcl"
+;;                           :toplevel #'main
+;;                           :executable t)
+
